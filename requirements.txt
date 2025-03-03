@@ -1,0 +1,7 @@
+Flask
+Flask-SQLAlchemy
+Flask-DotEnv
+requests
+tweepy
+facebook-sdk
+python-dotenv

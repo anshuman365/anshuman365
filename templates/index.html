@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Twitter Dashboard</h1>
+
+        <div class="profile">
+            <img src="{{ twitter.profile_image }}" alt="Profile Image">
+            <h2>@{{ twitter.username }}</h2>
+            <p>{{ twitter.bio }}</p>
+            <p><strong>Followers:</strong> {{ twitter.followers }}</p>
+            <p><strong>Following:</strong> {{ twitter.following }}</p>
+        </div>
+
+        <h3>Post a Tweet</h3>
+        <form method="POST">
+            <textarea name="tweet" placeholder="Write your tweet here..." required></textarea>
+            <button type="submit">Tweet</button>
+        </form>
+
+        <h3>Latest Tweets</h3>
+        <ul>
+            {% for tweet in twitter.tweets %}
+            <li>
+                <p>{{ tweet.text }}</p>
+                <p>❤️ {{ tweet.likes }} | 🔁 {{ tweet.retweets }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
