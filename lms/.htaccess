@@ -1,10 +1,9 @@
 RewriteEngine On
 
-# Prevent infinite redirect loops for ecommerce or lms
-RewriteCond %{REQUEST_URI} ^/(ecommerce|lms)/ [NC]
+# Allow normal access to files/folders
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Redirect all requests to index.php if the file or folder does not exist
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+# Redirect all requests to lms/index.php
 RewriteRule ^ index.php [QSA,L]

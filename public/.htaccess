@@ -8,7 +8,11 @@ RewriteEngine On
 RewriteCond %{THE_REQUEST} /public/ [NC]
 RewriteRule ^(.*)$ /index.php [L,R=301]
 
-# Redirect all requests to index.php if file or folder does not exist
+# Allow access to subdirectories (ecommerce, lms)
+RewriteCond %{REQUEST_URI} ^/(ecommerce|lms) [NC]
+RewriteRule ^ - [L]
+
+# Redirect all other requests to index.php if file/folder does not exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
