@@ -1,7 +1,29 @@
+# Use PHP + Apache image
 FROM php:8.2-apache
+
+# Install required extensions
 RUN docker-php-ext-install mysqli pdo pdo_mysql
-WORKDIR /var/www/html
+
+# Set ServerName to avoid the warning
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Set the directory index
+RUN echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf
+
+# Enable mod_rewrite for clean URLs
+RUN a2enmod rewrite
+
+# Copy application files
 COPY . /var/www/html/
-RUN chown -R www-data:www-data /var/www/html
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Ensure permissions are correct
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+
+# Expose port 80
 EXPOSE 80
+
+# Start Apache
 CMD ["apache2-foreground"]
