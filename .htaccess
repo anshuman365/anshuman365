@@ -1,0 +1,27 @@
+# Disable directory listing (prevents users from seeing internal folders)
+Options -Indexes
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Redirect all requests to index.php if the file or folder doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [QSA,L]
+
+# Allow PHP execution in all directories
+AddType application/x-httpd-php .php
+
+# Force index.php as the default file
+DirectoryIndex index.php index.html
+
+# Set proper permissions for security
+<FilesMatch "^.*\.(ini|log|sql|sh)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Enable CORS (if needed for APIs)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
