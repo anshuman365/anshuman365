@@ -18,3 +18,7 @@ EXPOSE 80
 
 # Start Apache server
 CMD ["apache2-foreground"]
+
+RUN apt-get update && apt-get install -y unzip \
+    && curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
