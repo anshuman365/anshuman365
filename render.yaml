@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ecommerce-lms
+    env: docker
+    repo: https://github.com/anshuman365/anshuman365
+    branch: ecommerce-lms
+    dockerfilePath: ./Dockerfile
+    plan: free
+    autoDeploy: true
