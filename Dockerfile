@@ -5,7 +5,7 @@ FROM php:8.2-apache
 RUN a2enmod rewrite
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR /var/www/html/public
 
 # Copy all project files to container
 COPY . /var/www/html/
@@ -19,6 +19,7 @@ EXPOSE 80
 # Start Apache server
 CMD ["apache2-foreground"]
 
+# Install Composer
 RUN apt-get update && apt-get install -y unzip \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
