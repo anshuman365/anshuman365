@@ -10,16 +10,16 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 # Set Apache DocumentRoot to the public folder
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Ensure Apache loads the updated configuration
+# Enable mod_rewrite for Apache
 RUN a2enmod rewrite
 
 # Copy application files
 COPY . /var/www/html/
 
-# Set working directory to the public folder
+# Set working directory
 WORKDIR /var/www/html/public
 
-# Set proper permissions for security
+# Set proper permissions
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
 # Expose port 80

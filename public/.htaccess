@@ -1,0 +1,27 @@
+# Disable directory listing
+Options -Indexes
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Prevent direct access to the public directory itself
+RewriteCond %{THE_REQUEST} /public/ [NC]
+RewriteRule ^(.*)$ /index.php [L,R=301]
+
+# Redirect all requests to index.php if file or folder does not exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+# Force index.php as default
+DirectoryIndex index.php index.html
+
+# Protect sensitive files
+<FilesMatch "^.*\.(ini|log|sql|sh)$">
+    Require all denied
+</FilesMatch>
+
+# Enable CORS
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+</IfModule>
