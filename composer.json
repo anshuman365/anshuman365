@@ -1,0 +1,7 @@
+{
+    "name": "yourname/php-project",
+    "description": "A simple PHP project deployed on Render",
+    "require": {
+        "php": ">=7.4"
+    }
+}
