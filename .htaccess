@@ -4,6 +4,10 @@ Options -Indexes
 # Enable URL rewriting
 RewriteEngine On
 
+# Prevent infinite redirection loop for public directory
+RewriteCond %{REQUEST_URI} ^/public/ [NC]
+RewriteRule ^ - [L]
+
 # Redirect all requests to index.php if the file or folder doesn't exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
