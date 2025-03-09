@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SQL Server</title>
+    <script>
+        async function executeQuery() {
+            let query = document.getElementById("query").value;
+            let response = await fetch("/db/execute", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({"query": query})
+            });
+            let result = await response.json();
+            document.getElementById("result").innerText = JSON.stringify(result, null, 2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Universal SQL Server</h1>
+    <textarea id="query" rows="4" cols="50"></textarea><br>
+    <button onclick="executeQuery()">Run Query</button>
+    <pre id="result"></pre>
+</body>
+</html>
