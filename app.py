@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from api.auth import auth_bp
 from api.query import query_bp
 from database import init_db
@@ -13,6 +13,7 @@ init_db()
 app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(query_bp, url_prefix="/db")
 
+# Add home route
 @app.route("/")
 def home():
     return render_template('index.html')
